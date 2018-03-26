@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutStrings < Neo::Koan
-  def test_double_quoted_strings_are_strings
+  def test_double_quoted_strings_interpolate_variablesquoted_strings_are_strings
     string = "Hello, World"
-    assert_equal __, string.is_a?(String)
+    assert_equal true, string.is_a?(String)
   end
 
   def test_single_quoted_strings_are_also_strings
