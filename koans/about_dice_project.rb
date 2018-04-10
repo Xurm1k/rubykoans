@@ -6,6 +6,40 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #   code ...
 # end
 
+class DiceSet
+  attr_reader :values, :rolls
+  def initialize
+    @values = @rolls ||= []
+  end
+
+  def roll(dice)
+    return "shold be an array" unless values.is_a? Array
+    @rolls << values
+    @values = [*(1..dice)].shuffle
+    return "value #{dice} must be between 1 and 6" unless valid_dice(dice)
+    return equivalence_failure unless first_time_rolled?
+    values
+  end
+
+  def first_time_rolled?
+    rolls.empty?
+  end
+
+private
+
+  def valid_array
+    values.is_a? Array
+  end
+  
+  def valid_dice(dice)
+    (1..6).include? dice
+  end
+  
+  def equivalence_failure
+    "Two rolls should not be equal"
+  end
+end
+
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
     dice = DiceSet.new
